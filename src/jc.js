@@ -1,13 +1,11 @@
 const rp = require('request-promise');
 const fs = require('fs');
 const sha1 = require('sha1');
-
-const downloadUrl = "https://api.codenation.dev/v1/challenge/dev-ps/generate-data?token=eb76c4693e64db332bc098e9bc9f6217150ffcf2";
-const sendUrl = "https://api.codenation.dev/v1/challenge/dev-ps/submit-solution?token=eb76c4693e64db332bc098e9bc9f6217150ffcf2";
+const { DOWNLOAD_URL, SEND_URL } = require('./token');
 
 async function getDesafio () {
     try {
-      return await rp({ uri: downloadUrl, json: true });
+      return await rp({ uri: DOWNLOAD_URL, json: true });
     } catch (err) {
       console.log(err);
     }
@@ -49,7 +47,7 @@ function encriptSHA1 (message) {
 
 async function sendDesafio () {
     return await rp({
-        uri: sendUrl,
+        uri: SEND_URL,
         method: 'POST',
         formData: {
         answer: {
